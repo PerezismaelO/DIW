@@ -10,11 +10,40 @@
 @use "../mixins" as *;
 
 .pagina {
-  min-height: 100dvh;
+  min-height: 100dvh; // La pagina mide como mínimo lo mismo que la pantalla de alto
+  display: grid; // Convertimos la pagina en una "cuadricula"
+  grid-template-areas: // Son las areas de esa cuadricula, en este caso una columna y 5 filas
+    "cabecera"
+    "heroe"
+    "principal"
+    "consejos"
+    "pie";
+  // Dos columnas
+  @include desde($bp-md) {
+    grid-template-columns: 1fr 20rem; // La primera se estira y la segunda tiene una anchura fija
+
+    grid-template-areas: // Volvemos a "dibujar" las areas pero ahora con dos columnas 
+      "cabecera   cabecera"
+      "heroe      heroe"
+      "principal  consejos"
+      "pie        pie";
+  }
+
+  @include desde($bp-lg) { // En una pantalla grande la pagina no crece más y se pone en el centro
+    max-width: 75rem; // Ancho máximo 75rem
+    margin-inline: auto; // Mismo margen automatico a la izq y a la der para que quede centrada
+  }
 }
+ 
+// Los grid-area para que cada hijo esté en su lugar correspondiente
+.cabecera { grid-area: cabecera; }
+
+.heroe { grid-area: heroe; }
 
 .principal {
+  grid-area: principal;
   padding: clamp(1rem, 0.5rem + 2vw, 2.5rem); // 👀 A4 · relleno fluido (ya resuelto)
+  // Esto es para que crezca según el tamaño de la pagina
 }
 
 .principal__titulo {
@@ -22,11 +51,13 @@
 }
 
 .consejos {
+  grid-area: consejos;
   padding: clamp(1rem, 0.5rem + 2vw, 2.5rem); // 👀 A4 · relleno fluido (ya resuelto)
   background: var(--color-superficie);
 }
 
 .pie {
+  grid-area: pie;
   padding: $space-md;
   text-align: center;
   color: var(--color-sobre-marca);
