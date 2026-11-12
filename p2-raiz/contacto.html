@@ -10,12 +10,12 @@
     <!-- ✍️ B3 · Esta página va SOLO con Tailwind (src/tailwind.css), sin SASS. Ponle las clases de utilidad:
          los colores de RAÍZ (del @theme), dos columnas desde md y un botón con hover: y focus-visible:.
          Nada de valores sueltos entre corchetes ni style="". -->
-    <header>
-      <a href="/">RAÍZ</a>
-      <nav aria-label="Principal">
+    <header class="flex flex-col gap-2 bg-marca-oscuro p-4 text-white md:flex-row md:items-center md:justify-between">
+      <a href="/" class="text-2xl font-extrabold tracking-widest">RAÍZ</a>
+      <nav aria-label="Principal" class="flex flex-wrap items-center gap-4">
         <a href="/">Inicio</a>
-        <a href="/producto.html">Monstera</a>
-        <a href="/contacto.html" aria-current="page">Contacto</a>
+        <a href="/producto.html" class="underline">Monstera</a>
+        <a href="/contacto.html" aria-current="page" class="font-bold underline">Contacto</a>
       </nav>
     </header>
 
