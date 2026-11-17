@@ -21,13 +21,19 @@
 
     <main class="min-h-screen">
       <!-- mb-6: margen, border...: linea de abajo, font-extrabold: letra mas gruesa, tracking-wide: letras separadas -->
-      <h1 class="pl-4 mb-6 border-b-4 border-tierra pb-2 text-4xl font-extrabold tracking-wide text-marca-oscuro uppercase py-4">Contacto</h1>
+      <h1
+        class="pl-4 mb-6 border-b-4 border-tierra pb-2 text-4xl font-extrabold tracking-wide text-marca-oscuro uppercase py-4"
+      >
+        Contacto
+      </h1>
 
       <div class="grid gap-8 md:grid-cols-2 items-center">
         <section aria-label="Dónde estamos">
           <h2 class="text-center mb-6 text-5xl font-extrabold">El vivero</h2>
           <!-- leading-relaxed: más espacio entre lineas, text-lg: mas grande que el texto normal -->
-          <p class="text-center text-lg leading-relaxed text-texto">Abrimos de lunes a sábado, de 9:00 a 14:00. Si vienes en persona, te ayudamos a elegir.</p>
+          <p class="text-center text-lg leading-relaxed text-texto">
+            Abrimos de lunes a sábado, de 9:00 a 14:00. Si vienes en persona, te ayudamos a elegir.
+          </p>
           <!-- mt-4: margen de arriba, font-bold: negrita-->
           <p class="mt-4 text-center font-bold text-tierra text-2xl">Envíos gratis desde 40 €</p>
         </section>
@@ -40,14 +46,32 @@
           </label>
           <label class="font-bold text-2xl mt-8 flex flex-col gap-4" for="correo">
             Correo
-            <input class="rounded border-2 border-marca p-2" id="correo" name="correo" type="email" autocomplete="email" required />
+            <input
+              class="rounded border-2 border-marca p-2"
+              id="correo"
+              name="correo"
+              type="email"
+              autocomplete="email"
+              required
+            />
           </label>
           <label class="font-bold text-2xl mt-8 flex flex-col gap-4" for="mensaje">
             ¿En qué te ayudamos?
-            <textarea class="rounded border-2 border-marca p-2" id="mensaje" name="mensaje" rows="4" required></textarea>
+            <textarea
+              class="rounded border-2 border-marca p-2"
+              id="mensaje"
+              name="mensaje"
+              rows="4"
+              required
+            ></textarea>
           </label>
           <!-- hover: al pasar el raton se pone verde el fondo, focus-visible:outline: al tabular se crea un contorno terracota-->
-          <button class="mt-4 rounded border-2 border-marca p-2 hover:bg-marca-oscuro focus-visible:outline-2 focus-visible:outline-tierra" type="submit">Enviar</button>
+          <button
+            class="mt-4 rounded border-2 border-marca p-2 hover:bg-marca-oscuro focus-visible:outline-2 focus-visible:outline-tierra"
+            type="submit"
+          >
+            Enviar
+          </button>
         </form>
       </div>
     </main>

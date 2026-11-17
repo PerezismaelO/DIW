@@ -1,11 +1,12 @@
 // _tarjeta-planta.scss — ✍️ B1 · la tarjeta de una planta en BEM
 // Mira _boton.scss (👀): así es un bloque BEM con sus modificadores.
 // ✍️ B1. Primero las clases en index.html (las 6 <article> de .destacados), después su estilo aquí:
-//    - el bloque .tarjeta-planta y sus elementos (__imagen, __nombre, __descripcion, __precio, __boton, __etiqueta);
-//    - los modificadores --oferta (que se note) y --agotada (la imagen en gris);
-//    - especificidad plana: una clase por selector (o .tarjeta-planta--mod .tarjeta-planta__elem). Sin etiquetas ni ids.
-@use "../tokens" as *;
+// - el bloque .tarjeta-planta y sus elementos (__imagen, __nombre, __descripcion, __precio, __boton, __etiqueta);
+// - los modificadores --oferta (que se note) y --agotada (la imagen en gris);
+// - especificidad plana: una clase por selector (o .tarjeta-planta--mod .tarjeta-planta__elem). Sin etiquetas ni ids.
 // La parte común de todas las tarjetas
+@use "../tokens" as *;
+
 .tarjeta-planta {
   display: flex;
   flex-direction: column;
@@ -14,36 +15,37 @@
   border-radius: $radius-md;
   background: var(--color-superficie);
 }
+
 // Los 4 elementos
 .tarjeta-planta__imagen {
-    width: 100%;
-    height: auto;
-    border-radius: $radius-md;
+  width: 100%;
+  height: auto;
+  border-radius: $radius-md;
 }
 
 .tarjeta-planta__nombre {
-    margin: 0;
+  margin: 0;
 }
 
 .tarjeta-planta__descripcion {
-    flex-grow: 1;
-    margin: 0;
+  flex-grow: 1;
+  margin: 0;
 }
 
 .tarjeta-planta__precio {
-    margin: 0;
-    font-weight: 700;
-    color: var(--color-marca);
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-marca);
 }
 
 // Los 2 modificadores
 
 // Remarca la tarjeta de oferta
 .tarjeta-planta--oferta {
-    outline: 2px solid var(--color-acento);
+  outline: 2px solid var(--color-acento);
 }
 
 // Pone en gris la imagen de la planta si esta agotada
 .tarjeta-planta--agotada .tarjeta-planta__imagen {
-    filter: grayscale(1);
+  filter: grayscale(1);
 }
