@@ -42,12 +42,12 @@
           <label class="font-bold text-2xl mt-8 flex flex-col gap-4" for="nombre">
             Nombre
             <!-- border-2; borde un poco grueso, p-2: espacio por dentro, border-marca: borde verde-->
-            <input class="rounded border-2 border-marca p-2" id="nombre" name="nombre" autocomplete="name" required />
+            <input class="rounded border-2 border-marca p-2 focus-visible:outline-tierra" id="nombre" name="nombre" autocomplete="name" required />
           </label>
           <label class="font-bold text-2xl mt-8 flex flex-col gap-4" for="correo">
             Correo
-            <input
-              class="rounded border-2 border-marca p-2"
+            <input 
+              class="rounded border-2 border-marca p-2 focus-visible:outline-tierra"
               id="correo"
               name="correo"
               type="email"
@@ -58,7 +58,7 @@
           <label class="font-bold text-2xl mt-8 flex flex-col gap-4" for="mensaje">
             ¿En qué te ayudamos?
             <textarea
-              class="rounded border-2 border-marca p-2"
+              class="rounded border-2 border-marca p-2 focus-visible:outline-tierra"
               id="mensaje"
               name="mensaje"
               rows="4"
@@ -67,7 +67,7 @@
           </label>
           <!-- hover: al pasar el raton se pone verde el fondo, focus-visible:outline: al tabular se crea un contorno terracota-->
           <button
-            class="mt-4 rounded border-2 border-marca p-2 hover:bg-marca-oscuro focus-visible:outline-2 focus-visible:outline-tierra"
+            class="bg-marca text-  hover:bg-marca-oscuro text-white mt-4 rounded border-2 border-marca p-2 focus-visible:outline-2 focus-visible:outline-tierra"
             type="submit"
           >
             Enviar

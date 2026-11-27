@@ -150,3 +150,208 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =====================================================================
+   CHULETA DEFENSA · DIW P2 · RAÍZ
+   Antes de tocar nada:  cd ~/DIW/p2-raiz  →  docker compose up
+   Después de cada cambio, en otra terminal (cd p2-raiz):
+     docker compose run --rm web npm run lint      ← Stylelint
+     docker compose run --rm web npm run formato   ← Prettier
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1 · "AÑADE UNA TARJETA NUEVA (de oferta / agotada)"  → index.html
+   Copia un <article> dentro de <section class="destacados"> y cambia datos.
+   El modificador SIEMPRE va JUNTO al bloque.
+   --------------------------------------------------------------------- */
+<article class="tarjeta-planta tarjeta-planta--oferta">
+  <img class="tarjeta-planta__imagen" src="/tarjetas/pothos.svg" alt="" width="400" height="300" />
+  <p class="tarjeta-planta__etiqueta">Oferta −30 %</p>
+  <h3 class="tarjeta-planta__nombre">Ficus</h3>
+  <p class="tarjeta-planta__descripcion">Ideal para salones luminosos.</p>
+  <p class="tarjeta-planta__precio">19,90 €</p>
+  <button class="boton tarjeta-planta__boton" type="button">Añadir al carrito</button>
+</article>
+/* Agotada: tarjeta-planta--agotada + etiqueta "Agotada" + <button ... disabled>Sin existencias</button> */
+/* No hay que tocar el CSS: el grid auto-fit la coloca solo. */
+
+
+/* ---------------------------------------------------------------------
+   2 · "HAZ QUE LA ETIQUETA DE OFERTA SE VEA MÁS"  → _tarjeta-planta.scss
+   (ahora mismo NO tiene estilo)
+   --------------------------------------------------------------------- */
+// Elemento: la etiqueta, con aspecto de "pastilla"
+.tarjeta-planta__etiqueta {
+  align-self: flex-start;            // que no ocupe todo el ancho (la tarjeta es flex en columna)
+  margin: 0;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+  font-weight: 700;
+  color: var(--color-sobre-marca);
+  background: var(--color-marca);
+}
+
+// Dentro de una tarjeta DE OFERTA, la etiqueta en color acento
+// (el modificador va en el bloque y desde ahí cambia su elemento)
+.tarjeta-planta--oferta .tarjeta-planta__etiqueta {
+  background: var(--color-acento);
+}
+
+
+/* ---------------------------------------------------------------------
+   3 · "CREA UN MODIFICADOR NUEVO, p. ej. --novedad"
+   HTML: class="tarjeta-planta tarjeta-planta--novedad"
+   SCSS (_tarjeta-planta.scss): solo lo que CAMBIA respecto al bloque.
+   --------------------------------------------------------------------- */
+.tarjeta-planta--novedad {
+  outline: 2px solid var(--color-marca);
+}
+/* Nombre en BEM: minúsculas y guiones; si no, Stylelint lo marca. */
+
+
+/* ---------------------------------------------------------------------
+   4 · "QUE EN DESTACADOS QUEPAN MÁS / MENOS COLUMNAS"  → _destacados.scss
+   Cambia SOLO el mínimo de minmax. Más pequeño = más columnas.
+   --------------------------------------------------------------------- */
+grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));  // más columnas
+grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));  // menos columnas
+/* Nunca quites el min(…, 100%): es lo que evita el desbordamiento a 320 px.
+   NUNCA añadas una media query aquí (lo pide el enunciado). */
+
+
+/* ---------------------------------------------------------------------
+   5 · "QUE LA FICHA PASE A DOS COLUMNAS ANTES / DESPUÉS"  → _ficha.scss
+   --------------------------------------------------------------------- */
+@container (min-width: 30rem) {        // número más pequeño = pasa a dos columnas antes
+  grid-template-columns: 1fr 1fr;      // foto y texto a partes iguales (antes 1fr 2fr)
+}
+/* Explicación: mide el HUECO (.hueco-ficha), no la pantalla. */
+
+
+/* ---------------------------------------------------------------------
+   6 · LAYOUT  → _layout.scss
+   --------------------------------------------------------------------- */
+// a) Columna de consejos más ancha o más estrecha (desde $bp-md):
+grid-template-columns: 1fr 25rem;
+
+// b) Consejos A LA IZQUIERDA del principal: solo se cambia el "dibujo"
+grid-template-columns: 20rem 1fr;
+grid-template-areas:
+  "cabecera  cabecera"
+  "heroe     heroe"
+  "consejos  principal"
+  "pie       pie";
+
+// c) En móvil, consejos ANTES que principal: cambia el orden en el bloque SIN media query
+grid-template-areas: "cabecera" "heroe" "consejos" "principal" "pie";
+
+// d) Página más ancha en escritorio: dentro de @include desde($bp-lg)
+max-width: 90rem;
+
+
+/* ---------------------------------------------------------------------
+   7 · "CAMBIA EL COLOR DE LA MARCA EN TODA LA WEB"  → scss/_tokens.scss
+   Cambias UN valor y cambia todo (botones, precios, cabecera...).
+   --------------------------------------------------------------------- */
+$green-500: #1565c0;   // ← solo aquí se escriben colores (Stylelint lo vigila)
+/* Va: token ($green-500) → semántico ($color-brand-primary)
+   → variable CSS en _temas.scss (--color-marca) → componentes con var(--color-marca).
+   Para contacto.html (Tailwind) hay que cambiarlo también en src/tailwind.css (@theme). */
+
+
+/* ---------------------------------------------------------------------
+   8 · TAILWIND  → contacto.html / src/tailwind.css
+   --------------------------------------------------------------------- */
+/* a) Color nuevo: en src/tailwind.css, dentro de @theme */
+--color-crema: #f6f4ef;          /* ya puedes usar bg-crema, text-crema, border-crema */
+
+/* b) Tres columnas en pantallas grandes: en el <div class="grid ...">, añade */
+lg:grid-cols-3
+
+/* c) Cambiar el hover del botón: en el <button> cambia/añade */
+hover:bg-tierra hover:text-white
+
+/* d) Dar estilo al <footer> (ahora no tiene): */
+<footer class="bg-marca-oscuro p-4 text-center text-white">RAÍZ, vivero online · Cádiz</footer>
+
+/* Reglas: nada de corchetes (p-[13px]) ni style="". sm: md: lg: = mobile-first. */
+
+
+/* ---------------------------------------------------------------------
+   9 · ANIMACIÓN NUEVA  → _animaciones.scss
+   Solo transform y opacity. Y SIEMPRE añadirla al reduced-motion.
+   --------------------------------------------------------------------- */
+.ficha {
+  transition: transform 200ms ease-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-planta,
+  .tarjeta-planta__boton,
+  .ficha {                       // ← añadirla aquí
+    transition: none;
+  }
+  /* ...lo demás igual */
+}
+/* Por qué NO width/margin: obligan a recalcular el layout en cada fotograma (tirones).
+   transform/opacity los mueve la GPU. */
+
+
+/* ---------------------------------------------------------------------
+   10 · IMÁGENES  → index.html / producto.html
+   --------------------------------------------------------------------- */
+// a) Que la portada ocupe media pantalla desde 600px: cambia sizes en los 3 (2 source + img)
+sizes="(min-width: 600px) 50vw, 100vw"
+// b) Imagen que NO se ve al entrar → loading="lazy". La que sí se ve → nada, o fetchpriority="high".
+// c) Demostrar qué foto baja: F12 → Red → Ctrl+Shift+M (móvil) → "Inhabilitar caché" → recargar → buscar "heroe".
+//    375 px a 1x → heroe-480.avif · a 2x → heroe-960.avif · portátil 1280 → heroe-1440.avif
+
+
+/* ---------------------------------------------------------------------
+   11 · SVG NUEVO  → index.html
+   --------------------------------------------------------------------- */
+// Decorativo (al lado hay texto que ya lo explica):
+<svg aria-hidden="true" ...> ... fill="currentColor" ... </svg>
+// Con significado (no hay texto al lado):
+<svg role="img" ...><title>Lo que significa</title> ... fill="currentColor" ... </svg>
+// currentColor = color del texto que lo rodea → cambia solo en tema oscuro.
+
+
+/* ---------------------------------------------------------------------
+   12 · SI ME PIDE HACERLO "CON GIT"
+   --------------------------------------------------------------------- */
+git switch develop
+git switch -c feature/cambio-defensa
+// ...cambio...
+git add .
+git commit -m "Cambio pedido en la defensa"
+git switch develop
+git merge --no-ff feature/cambio-defensa
